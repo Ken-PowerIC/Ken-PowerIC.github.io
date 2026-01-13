@@ -209,7 +209,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-01-13 15:51:19" itemprop="dateModified" datetime="2026-01-13T15:51:19+08:00">2026-01-13</time>
+      <time title="修改时间：2026-01-12 20:00:00" itemprop="dateModified" datetime="2026-01-12T20:00:00+08:00">2026-01-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -231,14 +231,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="报告摘要：连续电流模式（CCM）下的次谐波震荡机理与采样效应"><a href="#报告摘要：连续电流模式（CCM）下的次谐波震荡机理与采样效应" class="headerlink" title="报告摘要：连续电流模式（CCM）下的次谐波震荡机理与采样效应"></a>报告摘要：连续电流模式（CCM）下的次谐波震荡机理与采样效应</h3><h4 id="1-现象与背景"><a href="#1-现象与背景" class="headerlink" title="1.现象与背景"></a>1.现象与背景</h4><p>本报告针对峰值电流模式（Peak Current Mode）控制的开关电源在连续电流模式（CCM）下出现的不稳定性进行了深入分析。主要关注当占空比 $D &gt; 0.5$ 时，电感电流波形出现频率为开关频率一半（$f_s&#x2F;2$）的<strong>次谐波震荡</strong>现象。</p>
+          <h3 id="报告摘要："><a href="#报告摘要：" class="headerlink" title="报告摘要："></a>报告摘要：</h3><p>20年前开发适配器用电源IC时，采用了流行的峰值电流模，设计谐波补偿功能来应对次谐波振荡。当时只进行了时域分析，频域分析就放过了，应为不太懂，好像不懂也可以把芯片设计好（尴尬）。时过境迁，有机会再次进行频域分析，和各位电源IC开发者共勉。有兴趣细看的话请点击下面的”阅读全文”。</p>
+<h4 id="1-现象与背景"><a href="#1-现象与背景" class="headerlink" title="1.现象与背景"></a>1.现象与背景</h4><p>本报告针对峰值电流模式（Peak Current Mode）控制的开关电源在连续电流模式（CCM）下出现的不稳定性进行了深入分析。主要关注当占空比 $D &gt; 0.5$ 时，电感电流波形出现频率为开关频率一半（$f_s&#x2F;2$）的<strong>次谐波振荡</strong>现象。</p>
 <h4 id="2-几何机理分析（时域）"><a href="#2-几何机理分析（时域）" class="headerlink" title="2.几何机理分析（时域）"></a>2.几何机理分析（时域）</h4><p>通过分析电感电流的上升斜率（$m_1$）和下降斜率（$m_2$），报告揭示了扰动在开关周期间的传播规律。推导表明，相邻周期的电流误差关系为：</p>
 <p>$$\Delta I_{n+1} &#x3D; -\frac{D}{1-D} \Delta I_n$$</p>
 <ul>
 <li>当 $D &lt; 0.5$ 时，误差衰减因子小于 1，扰动收敛，系统稳定。</li>
-<li>当 $D &gt; 0.5$ 时，误差衰减因子绝对值大于 1，初始扰动逐周期被放大，导致震荡。</li>
+<li>当 $D &gt; 0.5$ 时，误差衰减因子绝对值大于 1，初始扰动逐周期被放大，导致振荡。</li>
 </ul>
-<h4 id="3-建模与传递函数（频域）"><a href="#3-建模与传递函数（频域）" class="headerlink" title="3.建模与传递函数（频域）"></a>3.建模与传递函数（频域）</h4><p>报告指出传统平均模型无法预测此震荡，必须引入<strong>采样效应（Sampling Effect）</strong>。</p>
+<h4 id="3-建模与传递函数（频域）"><a href="#3-建模与传递函数（频域）" class="headerlink" title="3.建模与传递函数（频域）"></a>3.建模与传递函数（频域）</h4><p>报告指出传统平均模型无法预测此振荡，必须引入<strong>采样效应（Sampling Effect）</strong>。</p>
 <ul>
 <li><strong>模型修正</strong>：将电流环视为一个采样数据系统，在反馈回路中引入采样保持函数 $H_e(s)$。</li>
 <li><strong>极点特征</strong>：该采样效应在频域表现为位于 $f_s&#x2F;2$ 处的一对高频共轭复数极点，导致系统在高频段的相位裕度急剧下降。</li>
@@ -250,7 +251,7 @@
 <li><strong>$D &#x3D; 0.5$</strong>：$Q \to \infty$，系统处于临界稳定状态。</li>
 <li><strong>$D &gt; 0.5$</strong>：$Q &lt; 0$，极点进入右半平面（RHP），系统在数学上和物理上均被判定为不稳定。</li>
 </ul>
-<h4 id="5-结论"><a href="#5-结论" class="headerlink" title="5.结论"></a>5.结论</h4><p>次谐波震荡是峰值电流模式控制在 $D&gt;0.5$ 时的固有特性。其物理本质是电感电流斜率不匹配导致的误差放大，数学本质是采样效应引入的右半平面极点（负 Q 值）。解决此问题的标准方法是引入斜坡补偿（Slope Compensation）以修正 Q 值使其恢复正值。</p>
+<h4 id="5-结论"><a href="#5-结论" class="headerlink" title="5.结论"></a>5.结论</h4><p>次谐波振荡是峰值电流模式控制在 $D&gt;0.5$ 时的固有特性。其物理本质是电感电流斜率不匹配导致的误差放大，数学本质是采样效应引入的右半平面极点（负 Q 值）。解决此问题的标准方法是引入斜坡补偿（Slope Compensation）以修正 Q 值使其恢复正值。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2026/01/11/%E5%B3%B0%E5%80%BC%E7%94%B5%E6%B5%81%E6%A8%A1%E7%9A%84%E6%AC%A1%E8%B0%90%E6%B3%A2%E6%8C%AF%E8%8D%A1/#more" rel="contents">
