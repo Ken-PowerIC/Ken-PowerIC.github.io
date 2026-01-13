@@ -307,7 +307,7 @@ endmodule
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-01-13 13:16:46" itemprop="dateModified" datetime="2026-01-13T13:16:46+08:00">2026-01-13</time>
+      <time title="修改时间：2026-01-13 13:29:15" itemprop="dateModified" datetime="2026-01-13T13:29:15+08:00">2026-01-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -329,7 +329,28 @@ endmodule
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="引言与理论背景"><a href="#引言与理论背景" class="headerlink" title="引言与理论背景"></a><strong>引言与理论背景</strong></h2><h3 id="开关电源控制技术的发展与挑战"><a href="#开关电源控制技术的发展与挑战" class="headerlink" title="开关电源控制技术的发展与挑战"></a><strong>开关电源控制技术的发展与挑战</strong></h3><p>在现代电力电子系统中，开关模式电源（Switching Mode Power Supply, SMPS）因其高效能和高功率密度而占据主导地位。在DC-DC转换器的控制策略中，电流模式控制（Current Mode Control, CMC），特别是峰值电流模式控制（Peak Current Mode Control, PCMC），自20世纪70年代末期以来逐渐取代了传统的电压模式控制（Voltage Mode Control, VMC），成为工业界的标准解决方案。</p>
+          <h2 id="报告摘要：连续电流模式（CCM）下的次谐波震荡机理与采样效应"><a href="#报告摘要：连续电流模式（CCM）下的次谐波震荡机理与采样效应" class="headerlink" title="报告摘要：连续电流模式（CCM）下的次谐波震荡机理与采样效应"></a>报告摘要：连续电流模式（CCM）下的次谐波震荡机理与采样效应</h2><h3 id="现象与背景"><a href="#现象与背景" class="headerlink" title="现象与背景"></a>现象与背景</h3><p>本报告针对峰值电流模式（Peak Current Mode）控制的开关电源在连续电流模式（CCM）下出现的不稳定性进行了深入分析。主要关注当占空比 $D &gt; 0.5$ 时，电感电流波形出现频率为开关频率一半（$f_s&#x2F;2$）的<strong>次谐波震荡</strong>现象。</p>
+<h3 id="几何机理分析（时域）"><a href="#几何机理分析（时域）" class="headerlink" title="几何机理分析（时域）"></a>几何机理分析（时域）</h3><p>通过分析电感电流的上升斜率（$m_1$）和下降斜率（$m_2$），报告揭示了扰动在开关周期间的传播规律。推导表明，相邻周期的电流误差关系为：</p>
+<p>$$\Delta I_{n+1} &#x3D; -\frac{D}{1-D} \Delta I_n$$</p>
+<ul>
+<li>当 $D &lt; 0.5$ 时，误差衰减因子小于 1，扰动收敛，系统稳定。</li>
+<li>当 $D &gt; 0.5$ 时，误差衰减因子绝对值大于 1，初始扰动逐周期被放大，导致震荡。</li>
+</ul>
+<h3 id="建模与传递函数（频域）"><a href="#建模与传递函数（频域）" class="headerlink" title="建模与传递函数（频域）"></a>建模与传递函数（频域）</h3><p>报告指出传统平均模型无法预测此震荡，必须引入<strong>采样效应（Sampling Effect）</strong>。</p>
+<ul>
+<li><strong>模型修正</strong>：将电流环视为一个采样数据系统，在反馈回路中引入采样保持函数 $H_e(s)$。</li>
+<li><strong>极点特征</strong>：该采样效应在频域表现为位于 $f_s&#x2F;2$ 处的一对高频共轭复数极点，导致系统在高频段的相位裕度急剧下降。</li>
+</ul>
+<h3 id="Q值推导与稳定性判据"><a href="#Q值推导与稳定性判据" class="headerlink" title="Q值推导与稳定性判据"></a>Q值推导与稳定性判据</h3><p>通过对闭环传递函数的详细推导，得出了描述系统阻尼特性的品质因数 $Q$ 的解析式：</p>
+<p>$$Q &#x3D; \frac{1}{\pi(1-2D)}$$</p>
+<p>该公式定量解释了稳定性与占空比的关系：</p>
+<ul>
+<li><strong>$D &#x3D; 0.5$</strong>：$Q \to \infty$，系统处于临界稳定状态。</li>
+<li><strong>$D &gt; 0.5$</strong>：$Q &lt; 0$，极点进入右半平面（RHP），系统在数学上和物理上均被判定为不稳定。</li>
+</ul>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>次谐波震荡是峰值电流模式控制在 $D&gt;0.5$ 时的固有特性。其物理本质是电感电流斜率不匹配导致的误差放大，数学本质是采样效应引入的右半平面极点（负 Q 值）。解决此问题的标准方法是引入斜坡补偿（Slope Compensation）以修正 Q 值使其恢复正值。</p>
+<p>&lt;—</p>
+<h2 id="引言与理论背景"><a href="#引言与理论背景" class="headerlink" title="引言与理论背景"></a><strong>引言与理论背景</strong></h2><h3 id="开关电源控制技术的发展与挑战"><a href="#开关电源控制技术的发展与挑战" class="headerlink" title="开关电源控制技术的发展与挑战"></a><strong>开关电源控制技术的发展与挑战</strong></h3><p>在现代电力电子系统中，开关模式电源（Switching Mode Power Supply, SMPS）因其高效能和高功率密度而占据主导地位。在DC-DC转换器的控制策略中，电流模式控制（Current Mode Control, CMC），特别是峰值电流模式控制（Peak Current Mode Control, PCMC），自20世纪70年代末期以来逐渐取代了传统的电压模式控制（Voltage Mode Control, VMC），成为工业界的标准解决方案。</p>
 <p>峰值电流模式控制的核心优势在于其“双环”结构：内环为快速的电流控制环路，外环为较慢的电压调节环路。内环通过直接检测流经电感或开关管的电流峰值，使其跟随外环误差放大器的输出信号，从而将电感元件从这一阶次上转化为一个受控电流源 1。这种机制带来了显著的性能提升：</p>
 <ol>
 <li><strong>极点分裂</strong>：将输出滤波器原本的二阶复数极点（LC极点）分裂为两个实数极点，简化了补偿网络设计。  </li>
