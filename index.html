@@ -231,7 +231,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="摘要："><a href="#摘要：" class="headerlink" title="摘要："></a>摘要：</h2><p>20年前开发适配器用电源IC时，采用了当时流行的峰值电流模控制（Peak Current Mode Control, PCMC），设计斜坡补偿（Slope compensation）功能来应对次谐波振荡(Subharmonic Oscillation)。当时只进行了时域分析，频域分析就放过了，应为不太懂，好像不懂也可以把芯片设计好（尴尬）。<br>时过境迁，有机会进行频域分析，和电源IC从业者共勉。</p>
+          <h2 id="摘要："><a href="#摘要：" class="headerlink" title="摘要："></a>摘要：</h2><p>20年前开发适配器用电源IC时，采用了当时流行的峰值电流模控制（Peak Current Mode Control, PCMC），设计斜坡补偿（Slope compensation）来应对次谐波振荡(Subharmonic Oscillation)。当时只进行了时域分析，频域分析就放过了，应为不太懂，好像不懂也可以把芯片设计好（尴尬）。<br>时过境迁，有机会进行频域分析，和电源IC从业者共勉。</p>
 <p>详细请点击下面的”阅读全文”。</p>
 <h4 id="1-现象与背景"><a href="#1-现象与背景" class="headerlink" title="1. 现象与背景"></a>1. 现象与背景</h4><p>本文针对峰值电流模控制的开关电源在连续电流模式（CCM）下出现的不稳定性进行了系统分析。主要关注当占空比 $D &gt; 0.5$ 时，电感电流波形出现频率为开关频率一半（$f_s&#x2F;2$）的<strong>次谐波振荡</strong>现象。</p>
 <h4 id="2-几何机理分析（时域）"><a href="#2-几何机理分析（时域）" class="headerlink" title="2.几何机理分析（时域）"></a>2.几何机理分析（时域）</h4><p>通过分析电感电流的上升斜率（$m_1$）和下降斜率（$m_2$），揭示了扰动在开关周期间的传播规律。推导表明，相邻周期的电流误差关系为：</p>

@@ -20,12 +20,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="摘要：20年前开发适配器用电源IC时，采用了当时流行的峰值电流模控制（Peak Current Mode Control, PCMC），设计斜坡补偿（Slope compensation）功能来应对次谐波振荡(Subharmonic Oscillation)。当时只进行了时域分析，频域分析就放过了，应为不太懂，好像不懂也可以把芯片设计好（尴尬）。时过境迁，有机会进行频域分析，和电源IC从业者共勉。">
+    <meta name="description" content="摘要：20年前开发适配器用电源IC时，采用了当时流行的峰值电流模控制（Peak Current Mode Control, PCMC），设计斜坡补偿（Slope compensation）来应对次谐波振荡(Subharmonic Oscillation)。当时只进行了时域分析，频域分析就放过了，应为不太懂，好像不懂也可以把芯片设计好（尴尬）。时过境迁，有机会进行频域分析，和电源IC从业者共勉。 详">
 <meta property="og:type" content="article">
 <meta property="og:title" content="峰值电流模的次谐波振荡">
 <meta property="og:url" content="http://example.com/2026/01/11/%E5%B3%B0%E5%80%BC%E7%94%B5%E6%B5%81%E6%A8%A1%E7%9A%84%E6%AC%A1%E8%B0%90%E6%B3%A2%E6%8C%AF%E8%8D%A1/index.html">
 <meta property="og:site_name" content="电源IC开发笔记">
-<meta property="og:description" content="摘要：20年前开发适配器用电源IC时，采用了当时流行的峰值电流模控制（Peak Current Mode Control, PCMC），设计斜坡补偿（Slope compensation）功能来应对次谐波振荡(Subharmonic Oscillation)。当时只进行了时域分析，频域分析就放过了，应为不太懂，好像不懂也可以把芯片设计好（尴尬）。时过境迁，有机会进行频域分析，和电源IC从业者共勉。">
+<meta property="og:description" content="摘要：20年前开发适配器用电源IC时，采用了当时流行的峰值电流模控制（Peak Current Mode Control, PCMC），设计斜坡补偿（Slope compensation）来应对次谐波振荡(Subharmonic Oscillation)。当时只进行了时域分析，频域分析就放过了，应为不太懂，好像不懂也可以把芯片设计好（尴尬）。时过境迁，有机会进行频域分析，和电源IC从业者共勉。 详">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-01-11T12:00:00.000Z">
 <meta property="article:modified_time" content="2026-01-12T12:00:00.000Z">
@@ -236,7 +236,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h2 id="摘要："><a href="#摘要：" class="headerlink" title="摘要："></a>摘要：</h2><p>20年前开发适配器用电源IC时，采用了当时流行的峰值电流模控制（Peak Current Mode Control, PCMC），设计斜坡补偿（Slope compensation）功能来应对次谐波振荡(Subharmonic Oscillation)。当时只进行了时域分析，频域分析就放过了，应为不太懂，好像不懂也可以把芯片设计好（尴尬）。<br>时过境迁，有机会进行频域分析，和电源IC从业者共勉。</p>
+    <div class="post-body" itemprop="articleBody"><h2 id="摘要："><a href="#摘要：" class="headerlink" title="摘要："></a>摘要：</h2><p>20年前开发适配器用电源IC时，采用了当时流行的峰值电流模控制（Peak Current Mode Control, PCMC），设计斜坡补偿（Slope compensation）来应对次谐波振荡(Subharmonic Oscillation)。当时只进行了时域分析，频域分析就放过了，应为不太懂，好像不懂也可以把芯片设计好（尴尬）。<br>时过境迁，有机会进行频域分析，和电源IC从业者共勉。</p>
 <p>详细请点击下面的”阅读全文”。</p>
 <h4 id="1-现象与背景"><a href="#1-现象与背景" class="headerlink" title="1. 现象与背景"></a>1. 现象与背景</h4><p>本文针对峰值电流模控制的开关电源在连续电流模式（CCM）下出现的不稳定性进行了系统分析。主要关注当占空比 $D &gt; 0.5$ 时，电感电流波形出现频率为开关频率一半（$f_s&#x2F;2$）的<strong>次谐波振荡</strong>现象。</p>
 <h4 id="2-几何机理分析（时域）"><a href="#2-几何机理分析（时域）" class="headerlink" title="2.几何机理分析（时域）"></a>2.几何机理分析（时域）</h4><p>通过分析电感电流的上升斜率（$m_1$）和下降斜率（$m_2$），揭示了扰动在开关周期间的传播规律。推导表明，相邻周期的电流误差关系为：</p>
@@ -260,8 +260,8 @@
 <h4 id="5-结论"><a href="#5-结论" class="headerlink" title="5.结论"></a>5.结论</h4><p>次谐波振荡是峰值电流模式控制在 $D&gt;0.5$ 时的固有特性。其物理本质是电感电流斜率不匹配导致的误差放大，数学本质是采样效应引入的右半平面极点（负 Q 值）。解决此问题的标准方法是引入斜坡补偿以修正 Q 值使其恢复正值。</p>
 <span id="more"></span>
 
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="1-引言与理论背景"><a href="#1-引言与理论背景" class="headerlink" title="1. 引言与理论背景"></a><strong>1. 引言与理论背景</strong></h3><h4 id="1-1-开关电源控制技术的发展与挑战"><a href="#1-1-开关电源控制技术的发展与挑战" class="headerlink" title="1.1 开关电源控制技术的发展与挑战"></a><strong>1.1 开关电源控制技术的发展与挑战</strong></h4><p>在现代电力电子系统中，开关模式电源（Switching Mode Power Supply, SMPS）因其高效能和高功率密度而占据主导地位。在DC-DC转换器的控制策略中，电流模式控制（Current Mode Control, CMC），特别是峰值电流模式控制（Peak Current Mode Control, PCMC），自20世纪70年代末期以来逐渐取代了传统的电压模式控制（Voltage Mode Control, VMC），成为工业界的标准解决方案。</p>
-<p>峰值电流模式控制的核心优势在于其“双环”结构：内环为快速的电流控制环路，外环为较慢的电压调节环路。内环通过直接检测流经电感或开关管的电流峰值，使其跟随外环误差放大器的输出信号，从而将电感元件从这一阶次上转化为一个受控电流源 1。这种机制带来了显著的性能提升：</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="1-引言与理论背景"><a href="#1-引言与理论背景" class="headerlink" title="1. 引言与理论背景"></a><strong>1. 引言与理论背景</strong></h3><h4 id="1-1-开关电源控制技术的发展与挑战"><a href="#1-1-开关电源控制技术的发展与挑战" class="headerlink" title="1.1 开关电源控制技术的发展与挑战"></a><strong>1.1 开关电源控制技术的发展与挑战</strong></h4><p>在现代电力电子系统中，开关电源（Switching Mode Power Supply, SMPS）因其高效能和高功率密度而占据主导地位。在DC-DC转换器的控制策略中，电流模控制（Current Mode Control, CMC），特别是峰值电流模控制（Peak Current Mode Control, PCMC），自20世纪70年代末期以来逐渐取代了传统的电压模控制（Voltage Mode Control, VMC），成为工业界的主要解决方案。</p>
+<p>峰值电流模式控制的核心优势在于其“双环”结构：内环为快速的电流控制环路，外环为较慢的电压调节环路。内环通过直接检测流经电感或开关管的电流峰值，使其跟随外环误差放大器的输出信号，从而将电感元件从这一阶次上转化为一个受控电流源<sup>[1]</sup>。这种机制带来了显著的性能提升：</p>
 <ol>
 <li><strong>极点分裂</strong>：将输出滤波器原本的二阶复数极点（LC极点）分裂为两个实数极点，简化了补偿网络设计。  </li>
 <li><strong>音频敏感度（Audio Susceptibility）优化</strong>：具有固有的输入电压前馈特性，对输入电压波动具有极快的抑制能力。  </li>
