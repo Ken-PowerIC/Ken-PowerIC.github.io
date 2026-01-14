@@ -239,7 +239,7 @@
     <div class="post-body" itemprop="articleBody"><h2 id="摘要："><a href="#摘要：" class="headerlink" title="摘要："></a>摘要：</h2><p>20年前开发适配器用电源IC时，采用了当时流行的峰值电流模控制（Peak Current Mode Control, PCMC），设计斜坡补偿（Slope compensation）来应对次谐波振荡(Subharmonic Oscillation)。当时只进行了时域分析，频域分析就放过了，应为不太懂，好像不懂也可以把芯片设计好（尴尬）。<br>时过境迁，有机会进行频域分析，和电源IC从业者共勉。</p>
 <p>详细请点击下面的”阅读全文”。</p>
 <h4 id="1-现象与背景"><a href="#1-现象与背景" class="headerlink" title="1. 现象与背景"></a>1. 现象与背景</h4><p>本文针对峰值电流模控制的开关电源在连续电流模式（CCM）下出现的不稳定性进行了系统分析。主要关注当占空比 $D &gt; 0.5$ 时，电感电流波形出现频率为开关频率一半（$f_s&#x2F;2$）的<strong>次谐波振荡</strong>现象。</p>
-<h4 id="2-几何机理分析（时域）"><a href="#2-几何机理分析（时域）" class="headerlink" title="2.几何机理分析（时域）"></a>2.几何机理分析（时域）</h4><p>通过分析电感电流的上升斜率（$m_1$）和下降斜率（$m_2$），揭示了扰动在开关周期间的传播规律。推导表明，相邻周期的电流误差关系为：</p>
+<h4 id="2-几何机理分析（时域）"><a href="#2-几何机理分析（时域）" class="headerlink" title="2.几何机理分析（时域）"></a>2.几何机理分析（时域）</h4><p>通过分析电感电流的上升斜率（$S_n$）和下降斜率（$S_f$），揭示了扰动在开关周期间的传播规律。推导表明，相邻周期的电流误差关系为：</p>
 <p>$$\Delta I_{n+1} &#x3D; -\frac{D}{1-D} \Delta I_n$$</p>
 <ul>
 <li>当 $D &lt; 0.5$ 时，误差衰减因子小于 1，扰动收敛，系统稳定。</li>
@@ -282,15 +282,15 @@
 <h4 id="2-1-电感电流波形的几何特征"><a href="#2-1-电感电流波形的几何特征" class="headerlink" title="2.1 电感电流波形的几何特征"></a><strong>2.1 电感电流波形的几何特征</strong></h4><p>考虑一个标准的Buck转换器，采用固定频率峰值电流控制。<br>定义以下参数：</p>
 <ul>
 <li>$T_s$：开关周期。  </li>
-<li>$m_1$（或 $S_n$）：电感电流上升斜率。对于Buck转换器，在开通阶段（Switch ON），$S_n = \frac{V_{in} - V_o}{L}$ <sup>[4]</sup>。  </li>
-<li>$m_2$（或 $S_f$）：电感电流下降斜率。在关断阶段（Switch OFF），$S_f = \frac{V_o}{L}$ <sup>[4]</sup>。  </li>
-<li>$m_c$（或 $S_e$）：人工叠加的补偿斜坡斜率。</li>
+<li>$S_n$：电感电流上升斜率。对于Buck转换器，在开通阶段（Switch ON），$S_n = \frac{V_{in} - V_o}{L}$ <sup>[4]</sup>。  </li>
+<li>$S_f$：电感电流下降斜率。在关断阶段（Switch OFF），$S_f = \frac{V_o}{L}$ <sup>[4]</sup>。  </li>
+<li>$S_e$：人工叠加的补偿斜坡斜率。</li>
 </ul>
 <p>控制逻辑如下：</p>
 <ol>
 <li>时钟脉冲到来，开关管导通，电感电流以斜率 $S_n$ 上升。  </li>
 <li>控制电压 $v_c(t)$（通常是误差放大器输出减去补偿斜坡）作为关断阈值。  </li>
-<li>当采样电流 $R_i \cdot i_L(t)$ 触及 $v_c(t)$ 时，比较器翻转，开关管关断，电流以斜率 $S_f$ 下降，直到下一个时钟周期开始 3。</li>
+<li>当采样电流 $R_i \cdot i_L(t)$ 触及 $v_c(t)$ 时，比较器翻转，开关管关断，电流以斜率 $S_f$ 下降，直到下一个时钟周期开始 <sup>[3]</sup>。</li>
 </ol>
 <h4 id="2-2-扰动传播的差分方程推导"><a href="#2-2-扰动传播的差分方程推导" class="headerlink" title="2.2 扰动传播的差分方程推导"></a><strong>2.2 扰动传播的差分方程推导</strong></h4><p>假设系统处于稳态，电感电流在周期开始时的值为 $I_L(0)$。现在，假设在第 $n$ 个周期的起始时刻，电感电流受到一个微小的外部扰动 $\Delta i_L(n)$。我们需要分析这个扰动在经过一个完整的开关周期 $T_s$ 后，在第 $n+1$ 个周期起始时刻演变成了多少，记为 $\Delta i_L(n+1)$。</p>
 <h5 id="无斜率补偿的情况-S-e-0"><a href="#无斜率补偿的情况-S-e-0" class="headerlink" title="无斜率补偿的情况 ($S_e = 0$)"></a><strong>无斜率补偿的情况 ($S_e = 0$)</strong></h5><p>在没有斜率补偿时，关断阈值 $v_c$ 为常数（在小信号分析中假设误差放大器带宽远低于 $f_s$，因此在一个周期内 $v_c$ 基本不变）。</p>
@@ -304,7 +304,7 @@
 <p>$$\Delta i_L(n+1) = - S_f \cdot \Delta t_{off\_change}$$</p>
 <p>注意这里的几何关系：因为导通时间缩短了（假设扰动为正），电流提前开始下降。<br>实际上，我们可以直接通过三角形相似性或者端点计算：</p>
 <p>$$\Delta i_L(n+1) = - S_f \cdot \Delta t_{on} - \Delta i_{peak\_error}$$</p>
-<p>由于峰值固定，$\Delta i_{peak\<em>error} = 0$。但下降时间增加了 $\Delta t</em>{on}$（如果开通缩短，关断就延长）。<br>更严谨的推导：</p>
+<p>由于峰值固定，$\Delta i_{peak_error} &#x3D; 0$。但下降时间增加了 $\Delta t_{on}$（如果开通缩短，关断就延长）。<br>更严谨的推导：</p>
 <p>$$i_L(t_{peak}) = I_0 + \Delta i_L(n) + S_n t_{on} = I_c$$</p>
 <p>微分得：$d i_L(n) + S_n dt_{on} = 0 \Rightarrow dt_{on} = - \frac{1}{S_n} d i_L(n)$。<br>周期末端电流：$i_L(T_s) = I_c - S_f (T_s - t_{on})$。<br>微分得：$d i_L(n+1) = S_f dt_{on}$。<br>代入 $dt_{on}$：</p>
 <p>$$\Delta i_L(n+1) = S_f \left( - \frac{\Delta i_L(n)}{S_n} \right) = - \frac{S_f}{S_n} \Delta i_L(n)$$  </p>
